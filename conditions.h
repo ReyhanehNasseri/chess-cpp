@@ -22,7 +22,7 @@ bool iskingcheck(int i , int j){
     while(i<7 && iskingcheck==false){
         
         if(board[i][j]!='0'){
-            if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='c' or board[i][j]=='v')){
+            if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='c' || board[i][j]=='v')){
                 iskingcheck = true ; 
                 break ;
             }
@@ -37,7 +37,7 @@ bool iskingcheck(int i , int j){
     i = pos_i_king -1 ;
      while(i>=0 && iskingcheck==false){
         if(board[i][j]!='0'){
-            if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='c' or board[i][j]=='v')){
+            if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='c' || board[i][j]=='v')){
                 iskingcheck = true ; 
                 break ;
             }
@@ -53,7 +53,7 @@ bool iskingcheck(int i , int j){
     i=pos_i_king;
      while(j<8 && iskingcheck==false){
         if(board[i][j]!='0'){
-            if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='c' or board[i][j]=='v')){
+            if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='c' || board[i][j]=='v')){
                 iskingcheck = true ; 
                 break ;
             }
@@ -68,7 +68,7 @@ bool iskingcheck(int i , int j){
     j=pos_j_king-1;
     while(j>=0 && iskingcheck==false){
         if(board[i][j]!='0'){
-            if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='c' or board[i][j]=='v')){
+            if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='c' || board[i][j]=='v')){
                 iskingcheck = true ; 
                 break ;
             }
@@ -89,7 +89,7 @@ bool iskingcheck(int i , int j){
                 iskingcheck = true;
                 break;
             }
-            else if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='e' or board[i][j]=='v')){
+            else if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='e' || board[i][j]=='v')){
                 iskingcheck = true ; 
                 break ;
             }
@@ -110,7 +110,7 @@ bool iskingcheck(int i , int j){
                 iskingcheck = true;
                 break;
             }
-            else if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='e' or board[i][j]=='v')){
+            else if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='e' || board[i][j]=='v')){
                 iskingcheck = true ; 
                 break ;
             }
@@ -131,7 +131,7 @@ bool iskingcheck(int i , int j){
                 iskingcheck = true;
                 break;
             }
-            else if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='e' or board[i][j]=='v')){
+            else if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='e' || board[i][j]=='v')){
                 iskingcheck = true ; 
                 break ;
             }
@@ -152,7 +152,7 @@ bool iskingcheck(int i , int j){
                 iskingcheck = true;
                 break;
             }
-            else if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='e' or board[i][j]=='v')){
+            else if(  (colors[pos_i_king][pos_j_king]!= colors[i][j])  && (board[i][j]=='e' || board[i][j]=='v')){
                 iskingcheck = true ; 
                 break ;
             }
@@ -189,7 +189,7 @@ bool iskingcheck(int i , int j){
     if((iskingcheck==false) && (colors[pos_i_king][pos_j_king]!= colors[i-2][j+1]) && (board[i-2][j+1]=='h')){
         iskingcheck=true;
     }
-    if((iskingcheck==false) && (colors[pos_i_king][pos_j_king]!= colors[i+1][j+2]) && (board[i-1][j+2]=='h')){
+    if((iskingcheck==false) && (colors[pos_i_king][pos_j_king]!= colors[i-1][j+2]) && (board[i-1][j+2]=='h')){
         iskingcheck=true;
     }
 
@@ -203,7 +203,7 @@ bool is_origin_valid (int x , int y , char turn){
         return 1;
     }
     else{
-        cout<<"again! (picked a wrong piece) " <<endl;
+        cout<<"again! (pick a correct place) " <<endl;
         return 0;
     }
 
@@ -216,13 +216,16 @@ bool is_destination_valid (int x_origin , int y_origin ,int x_destination , int 
         return 0;
     }
     xydestination=10*x_destination+y_destination;
-   // cout<<"hi";
     boardpieces[x_origin][y_origin]->allpossiblemoves( x_origin , y_origin , turn);
     if(boardpieces[x_origin][y_origin]->is_the_move_valid(xydestination)){
         colors[x_destination][y_destination]=turn;
         colors[x_origin][y_origin]='0';
         board[x_destination][y_destination]=board[x_origin][y_origin];
         board[x_origin][y_origin]='0';
+        if(board[x_destination][y_destination]=='k' && colors[x_destination][y_destination]==turn){
+            if(turn=='w'){pos_i_kingw=x_destination ; pos_j_kingw=y_destination;}
+            if(turn=='b'){pos_i_kingb=x_destination ; pos_j_kingb=y_destination;}
+        }
         if(turn=='w'){
             if(iskingcheck(pos_i_kingw,pos_j_kingw)){
                 cout<<"invalid (king is check)"<<endl;
@@ -231,8 +234,8 @@ bool is_destination_valid (int x_origin , int y_origin ,int x_destination , int 
                 board[x_origin][y_origin]=board[x_destination][y_destination];
                 board[x_destination][y_destination]='0';
                 return 0;
-
             }
+
             else{
                 boardpieces[x_destination][y_destination]=boardpieces[x_origin][y_origin];
                 boardpieces[x_origin][y_origin]=NULL;
@@ -266,3 +269,5 @@ bool is_destination_valid (int x_origin , int y_origin ,int x_destination , int 
     
 
 }
+
+
