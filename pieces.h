@@ -11,13 +11,11 @@ class Pieces {
     char color;
     void move(int locx , int locy);
     virtual void allpossiblemoves(int locx , int locy , char turn) {
-        cout<<"hi";
 
     }
     bool alive = 1 ;
     int possible_locs[28];
     virtual bool is_the_move_valid(int xydestination){
-        cout<<"yes"<<endl;
         for(int i = 0 ; i<28 ; i++){
             if(possible_locs[i]==xydestination){
                 return 1;
@@ -245,10 +243,10 @@ class King : public Pieces {
         if(colors[locx][locy+1]!=turn && board[locx][locy+1]!='k'){possible_locs[i]=(locx)*10 + (locy+1); i++;}
         if(colors[locx-1][locy]!=turn && board[locx-1][locy]!='k'){possible_locs[i]=(locx-1)*10 + (locy); i++;}
         
-        for(int i = 0 ; i<28 ; i++){
-            cout<<possible_locs[i]<<" ";
-        }
-        cout<<endl;
+        // for(int i = 0 ; i<28 ; i++){
+        //     cout<<possible_locs[i]<<" ";
+        // }
+        // cout<<endl;
         
     }
     
@@ -259,56 +257,59 @@ class King : public Pieces {
 class Castle : public Pieces {
     public:
     void allpossiblemoves(int locx , int locy , char turn){
-    int i =0;
-    int x=locx+1;
-    int y=locy;
-     while(colors[x][y]=='0'){
-        possible_locs[i]=10*x + y;
-        x++;
-        i++;
-    }
-    if(colors[x][y]!= turn && board[x][y]!='k'){
-        possible_locs[i]=10*x+y;
-    }
-
-    x=locx-1;
-    y=locy;
-     while(colors[x][y]=='0'){
-        possible_locs[i]=10*x + y;
-        x--;
-        i++;
-    }
-    if(colors[x][y]!= turn && board[x][y]!='k'){
-        possible_locs[i]=10*x+y;
-    }
-
-    x=locx;
-    y=locy+1;
-     while(colors[x][y]=='0'){
-        possible_locs[i]=10*x + y;
-        y++;
-        i++;
-    }
-    if(colors[x][y]!= turn && board[x][y]!='k'){
-        possible_locs[i]=10*x+y;
-    }
-
-    x=locx;
-    y=locy-1;
-     while(colors[x][y]=='0'){
-        possible_locs[i]=10*x + y;
-        y--;
-        i++;
-    }
-    if(colors[x][y]!= turn && board[x][y]!='k'){
-        possible_locs[i]=10*x+y;
-    }
-    
-        
         for(int i = 0 ; i<28 ; i++){
-            cout<<possible_locs[i]<<" ";
+        possible_locs[i]=-1;
         }
-        cout<<endl;
+        int i =0;
+        int x=locx+1;
+        int y=locy;
+         while(colors[x][y]=='0'){
+            possible_locs[i]=10*x + y;
+            x++;
+            i++;
+        }
+        if(colors[x][y]!= turn && board[x][y]!='k'){
+            possible_locs[i]=10*x+y;
+        }
+
+        x=locx-1;
+        y=locy;
+         while(colors[x][y]=='0'){
+            possible_locs[i]=10*x + y;
+            x--;
+            i++;
+        }
+        if(colors[x][y]!= turn && board[x][y]!='k'){
+            possible_locs[i]=10*x+y;
+        }
+
+        x=locx;
+        y=locy+1;
+         while(colors[x][y]=='0'){
+            possible_locs[i]=10*x + y;
+            y++;
+            i++;
+        }
+        if(colors[x][y]!= turn && board[x][y]!='k'){
+            possible_locs[i]=10*x+y;
+        }
+
+        x=locx;
+        y=locy-1;
+         while(colors[x][y]=='0'){
+            possible_locs[i]=10*x + y;
+            y--;
+            i++;
+        }
+        if(colors[x][y]!= turn && board[x][y]!='k'){
+            possible_locs[i]=10*x+y;
+        }
+
+
+            // for(int i = 0 ; i<28 ; i++){
+            //     cout<<possible_locs[i]<<" ";
+            // }
+            // cout<<endl;
 
     }  
 
@@ -316,6 +317,30 @@ class Castle : public Pieces {
 };
 class Pawn : public Pieces {
     public:
+    bool first_turn = 1;
+    void allpossiblemoves(int locx , int locy , char turn){
+        for(int i = 0 ; i<28 ; i++){
+        possible_locs[i]=-1;
+        }
+        int i = 0;
+        if(colors[locx][locy]=='w'){
+            if(colors[locx+1][locy+1]=='b'&& board[locx+1][locy+1]!='k'){possible_locs[i]=(locx+1)*10 + (locy + 1) ; i++;}
+            if(colors[locx+1][locy-1]=='b'&& board[locx+1][locy-1]!='k'){possible_locs[i]=(locx+1)*10 + (locy - 1) ; i++;}
+            if(board[locx+1][locy]=='0'){possible_locs[i]=(locx+1)*10 + (locy) ; i++;}
+            if(board[locx+2][locy]=='0'&& first_turn){possible_locs[i]=(locx+2)*10 + (locy) ; i++;}
+        }
+        else if(colors[locx][locy]=='b'){
+            if(colors[locx-1][locy-1]=='w'&& board[locx-1][locy-1]!='k'){possible_locs[i]=(locx-1)*10 + (locy - 1) ; i++;}
+            if(colors[locx-1][locy+1]=='w'&& board[locx-1][locy+1]!='k'){possible_locs[i]=(locx-1)*10 + (locy + 1) ; i++;}
+            if(board[locx-1][locy]=='0'){possible_locs[i]=(locx-1)*10 + (locy) ; i++;}
+            if(board[locx-2][locy]=='0'&& first_turn){possible_locs[i]=(locx-2)*10 + (locy) ; i++;}
+        }
+        first_turn=0;
+        // for(int i = 0 ; i<28 ; i++){
+        //     cout<<possible_locs[i]<<" ";
+        // }
+        // cout<<endl;
+    }
 
 };
 
