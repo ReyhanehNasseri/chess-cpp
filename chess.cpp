@@ -13,8 +13,9 @@ int main(){
     int origin_locx , origin_locy, destination_locx , destination_locy;
     int origin ;
     int destination;
-   
-    while(!iskingmatte){
+    
+   cout<<"BEGIN : WHITE STARTS)"<<endl;
+    while(!is_king_matte(turn)){
 
         cout<<"player number "<<turn<<" turn : "<<endl;
         cin>>origin>>destination;
@@ -46,4 +47,15 @@ int main(){
         }
 
     }
+    if(turn == 'b'){
+    cout<<turn<<"lack player is matte"<<endl;
+    cout<<"congrats  WHITE PLAYER WINS!!!! "<<endl;
+
+    }
+    else {
+    cout<<turn<<"hite player is matte"<<endl;
+    cout<<"congrats  BLACK PLAYER WINS!!!! "<<endl;
+
+    }
+
 }

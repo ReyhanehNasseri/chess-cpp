@@ -270,4 +270,21 @@ bool is_destination_valid (int x_origin , int y_origin ,int x_destination , int 
 
 }
 
+bool is_king_matte(char turn){
+    if(turn=='w'){
+    boardpieces[pos_i_kingw][pos_j_kingw]->allpossiblemoves(pos_i_kingw , pos_j_kingw , turn);
+    if(boardpieces[pos_i_kingw][pos_j_kingw]->is_king_matte(pos_i_kingw , pos_j_kingw) && iskingcheck(pos_i_kingw , pos_j_kingw)){
+        return 1;
+    }
+    }
+    else if(turn == 'b'){
+    boardpieces[pos_i_kingb][pos_j_kingb]->allpossiblemoves(pos_i_kingb , pos_j_kingb , turn);
+    if(boardpieces[pos_i_kingb][pos_j_kingb]->is_king_matte(pos_i_kingb , pos_j_kingb) && iskingcheck(pos_i_kingb , pos_j_kingb)){
+        return 1;
+    }
+    }
+    
+    return 0;
+}
+
 

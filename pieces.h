@@ -9,7 +9,6 @@ class Pieces {
     public:
     int loc;
     char color;
-    void move(int locx , int locy);
     virtual void allpossiblemoves(int locx , int locy , char turn) {
 
     }
@@ -23,6 +22,10 @@ class Pieces {
 
         }
         return 0 ;
+    } 
+    virtual bool is_king_matte(int locx , int locy){
+      //only king need this func 
+      return 0; 
     }
 
 };
@@ -248,6 +251,15 @@ class King : public Pieces {
         // }
         // cout<<endl;
         
+    }
+    bool is_king_matte (int locx , int locy){
+        for(int i = 0 ; i<28 ; i++){
+            if(0<=(possible_locs[i]/10) && 7>=(possible_locs[i]/10) && 0<=(possible_locs[i]%10) && 7>=(possible_locs[i]%10) && 0<(possible_locs[i]))
+            {
+                return 0;
+            }
+        }
+        return 1;
     }
     
     
